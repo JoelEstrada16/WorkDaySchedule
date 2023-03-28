@@ -1,7 +1,24 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var save = $(".saveBtn")
+var textAre = $(".description")
+
+var timer = dayjs().hour()
+console.log(timer)
+var today = dayjs().format("MMMM D, YYYY hh:mm A");
+$("#currentDay").text(today)
+
+
+
 $(function () {
+
+  save.on("click", function(){
+    var value = $(this).siblings("time-block")
+
+
+  });
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -9,6 +26,21 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+
+  $(".time-block").each(function(){
+    var timeBlck = $(this).attr("id").split("-")[1]
+    console.log("cool")
+    if(timer ===+ timeBlck){
+      $(this).addClass("present");
+      $(this).children(".time-block").addClass("white-text")
+    } else if (timer < timeBlck){
+      $(this).removeClass("present")
+      $(this).addClass("future")
+    } else if (timer > timeBlck){
+      $(this).removeClass("future")
+      $(this).addClass("past")
+    }
+  })
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -20,4 +52,5 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+
 });
